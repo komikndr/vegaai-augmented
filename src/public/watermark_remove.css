@@ -1,0 +1,31 @@
+.watermark {
+    visibility : none !important;
+    display: none !important;
+}
+
+
+/* For Chrome, Edge, and Safari */
+::-webkit-scrollbar {
+  width: 10px; 
+  height: 10px; 
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+  border-radius: 10px; 
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888; 
+  border-radius: 10px; 
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555; 
+}
+
+/* For Firefox */
+html {
+  scrollbar-width: thin; 
+  scrollbar-color: #888 #f1f1f1; 
+}

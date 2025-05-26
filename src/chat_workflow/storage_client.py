@@ -1,0 +1,172 @@
+import boto3
+import uuid
+from typing import Any, Dict, Union
+from chainlit.logger import logger
+from chainlit.data.storage_clients.base import BaseStorageClient, EXPIRY_TIME
+from sqlalchemy import Column, String, Boolean, Integer, ForeignKey, Text, JSON
+from sqlalchemy.dialects.postgresql import UUID as PG_UUID, JSONB, ARRAY
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import relationship
+from chainlit import make_async
+
+
+class MinIOStorageClient(BaseStorageClient):
+    """
+    Class to enable MinIO storage provider using the S3 compatible API
+    """
+
+    def __init__(
+            self, bucket: str, endpoint_url: str, access_key: str, secret_key: str, use_ssl: str
+    ):
+        try:
+            self.bucket = bucket
+            self.endpoint_url = endpoint_url
+            self.client = boto3.client(
+                "s3",
+                endpoint_url=endpoint_url,
+                aws_access_key_id=access_key,
+                aws_secret_access_key=secret_key,
+                use_ssl=use_ssl
+            )
+
+            logger.info("MinIO initialized")
+        except Exception as e:
+            logger.warn(f"MinIO initialization error: {e}")
+
+    def sync_get_read_url(self, object_key: str) -> str:
+        try:
+            url = self.client.generate_presigned_url(
+                "get_object",
+                Params={"Bucket": self.bucket, "Key": object_key},
+                ExpiresIn=EXPIRY_TIME,
+            )
+            return url
+        except Exception as e:
+            logger.warn(f"S3StorageClient, get_read_url error: {e}")
+            return object_key
+
+    async def get_read_url(self, object_key: str) -> str:
+        return await make_async(self.sync_get_read_url)(object_key)
+
+    def sync_upload_file(
+        self,
+        object_key: str,
+        data: Union[bytes, str],
+        mime: str = "application/octet-stream",
+        overwrite: bool = True,
+    ) -> Dict[str, Any]:
+        try:
+            self.client.put_object(
+                Bucket=self.bucket, Key=object_key, Body=data, ContentType=mime
+            )
+            url = f"{self.endpoint_url}/{self.bucket}/{object_key}"
+            return {"object_key": object_key, "url": url}
+        except Exception as e:
+            logger.warn(f"S3StorageClient, upload_file error: {e}")
+            return {}
+
+    async def upload_file(
+        self,
+        object_key: str,
+        data: Union[bytes, str],
+        mime: str = "application/octet-stream",
+        overwrite: bool = True,
+    ) -> Dict[str, Any]:
+        return await make_async(self.sync_upload_file)(
+            object_key, data, mime, overwrite
+        )
+
+    def sync_delete_file(self, object_key: str) -> bool:
+        try:
+            self.client.delete_object(Bucket=self.bucket, Key=object_key)
+            return True
+        except Exception as e:
+            logger.warn(f"S3StorageClient, delete_file error: {e}")
+            return False
+
+    async def delete_file(self, object_key: str) -> bool:
+        return await make_async(self.sync_delete_file)(object_key)
+
+
+Base = declarative_base()
+
+
+class User(Base):
+    __tablename__ = "users"
+    id = Column(PG_UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    identifier = Column(String, nullable=False, unique=True)
+    metadata_ = Column("metadata", JSONB, nullable=False)
+    createdAt = Column(String)
+
+
+class Thread(Base):
+    __tablename__ = "threads"
+    id = Column(PG_UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    createdAt = Column(String)
+    name = Column(String)
+    userId = Column(PG_UUID(as_uuid=True), ForeignKey("users.id", ondelete="CASCADE"))
+    userIdentifier = Column(String)
+    tags = Column(ARRAY(String))
+    metadata_ = Column("metadata", JSONB)
+
+    user = relationship("User", backref="threads")
+
+
+class Step(Base):
+    __tablename__ = "steps"
+    id = Column(PG_UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    name = Column(String, nullable=False)
+    type = Column(String, nullable=False)
+    threadId = Column(PG_UUID(as_uuid=True), ForeignKey("threads.id"), nullable=False)
+    parentId = Column(PG_UUID(as_uuid=True))
+    disableFeedback = Column(Boolean, nullable=True)
+    streaming = Column(Boolean, nullable=False)
+    waitForAnswer = Column(Boolean)
+    isError = Column(Boolean)
+    metadata_ = Column("metadata", JSONB)
+    tags = Column(ARRAY(String))
+    input = Column(Text)
+    output = Column(Text)
+    createdAt = Column(String)
+    start = Column(String)
+    end = Column(String)
+    generation = Column(JSONB)
+    showInput = Column(Text)
+    language = Column(String)
+    indent = Column(Integer)
+
+
+class Element(Base):
+    __tablename__ = "elements"
+    id = Column(PG_UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    threadId = Column(PG_UUID(as_uuid=True), ForeignKey("threads.id"))
+    type = Column(String)
+    url = Column(String)
+    chainlitKey = Column(String)
+    name = Column(String, nullable=False)
+    display = Column(String)
+    objectKey = Column(String)
+    size = Column(String)
+    page = Column(Integer)
+    language = Column(String)
+    forId = Column(PG_UUID(as_uuid=True))
+    mime = Column(String)
+    props = Column(JSONB)
+
+
+class Feedback(Base):
+    __tablename__ = "feedbacks"
+    id = Column(PG_UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    forId = Column(PG_UUID(as_uuid=True), nullable=False)
+    threadId = Column(PG_UUID(as_uuid=True), ForeignKey("threads.id"), nullable=False)
+    value = Column(Integer, nullable=False)
+    comment = Column(Text)
+
+    thread = relationship("Thread", backref="feedbacks")
+
+
+class LangGraph(Base):
+    __tablename__ = "langgraphs"
+    thread_id = Column(String, primary_key=True)
+    state = Column(JSON, nullable=False)
+    workflow = Column(String, nullable=False)
