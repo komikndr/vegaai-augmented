@@ -1,2 +1,2 @@
 from .openai import OpenAIProvider  # noqa
-from .vllm import VLLMProvider
+# from .vllm import VLLMProvider

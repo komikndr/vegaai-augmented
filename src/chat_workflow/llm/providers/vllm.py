@@ -7,7 +7,7 @@ from .base import LLMProvider
 from ..capabilities import ModelCapability
 
 
-class vLLMProvider(LLMProvider):
+class VLLMProvider(LLMProvider):
     def create_model(self, name: str, model: str, tools: Optional[List] = None, **kwargs) -> BaseChatModel:
         llm = ChatOpenAI(
             name=name,

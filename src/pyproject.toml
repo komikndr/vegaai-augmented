@@ -14,7 +14,7 @@ langchain-openai = "^0.2.1"
 langchain-anthropic = "^0.2.1"
 langchain-ollama = "^0.2.0"
 langchain-google-vertexai = "^2.0.1"
-chainlit = "2.0.4"
+chainlit = "2.5.5"
 boto3 = "^1.35.41"
 alembic = "^1.13.3"
 psycopg2-binary = "^2.9.9"
@@ -33,6 +33,7 @@ pyhive = "^0.7.0"
 thrift = "^0.21.0"
 thrift-sasl = "^0.4.3"
 elasticsearch-dbapi = {extras = ["opendistro"], version = "^0.2.11"}
+transformers = "^4.49.0"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.3.3"
