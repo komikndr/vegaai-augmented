@@ -1,30 +1,50 @@
-# VEGA AI, Personal RAG and Linux SysAdmin management
+# 📚 LesLLM, Chatbot Edukasi. Guiding student to use LLM responsibly
 
-## Login
-![LOGIN](./pic/login.png)
+Sebuah chatbot edukatif dengan dua jenis mode: Siswa dan Guru, 
+dirancang untuk mendorong pembelajaran aktif dan mencegah 
+penyalahgunaan LLM seperti ChatGPT oleh pelajar yang terlalu bergantung.
 
-## Hello
-![Chat](./pic/first-chat.png)
+## 🧠 Tujuan Utama
 
-## Plot
-![Plot](./pic/plot.png)
+Proyek ini bertujuan untuk **mengurangi ketergantungan** murid pada chatbot 
+pintar tanpa proses berpikir yang mandiri. Sama seperti kalkulator yang 
+bermanfaat setelah paham dasar-dasar matematika, chatbot ini berguna 
+jika digunakan dengan cara yang benar.
 
-## RAG
-![RAG](./pic/rag.png)
+## 👨‍🎓 Mode Siswa
 
-# Installation
-# Docker setup
-1. Make volume mount for Postgre and Minio, 
-    `mkdir volume && cd volume && mkdir postgre minio`
-2. Setting up `.env` by copy-ing and changing the value inside the `.env.example`
-3. `docker compose up`, you can change the expose port in app service inside `docker-compose.yaml`
-4. Go to `localhost:8000`
+Mode ini dibuat khusus untuk pelajar, dengan fitur-fitur utama:
 
-# Baremetal
-1. Prepare Postgre and Minio, and make sure it has required permission.
-2. Prefered: Install poetry for python, use this guide https://python-poetry.org/docs/
-    Alternative: make python 3.10 venv. and install `pip install requirements.txt` inside `src`.
-3. Go to `src` and run `chainlit run app.py --port 8000`
-4. Go to `localhost:8000`
+- ✅ Bertanya soal baru ke dalam database.
+- 💬 Menggunakan chatbot sebagai pemandu, bukan pemberi jawaban instan.
+- ⚠️ Deteksi penyalahgunaan LLM: Jika siswa bertanya secara langsung tanpa usaha berpikir 
+    terlebih dahulu, sistem akan menandai pertanyaan sebagai "LLM abuse".
+- 🎯 Mendorong proses berpikir mandiri dengan panduan dari chatbot.
+
+## 👩‍🏫 Mode Guru
+
+Mode ini dibuat lebih sederhana dan fungsional:
+
+- 📊 Membuat plot visualisasi data.
+- 🧾 Melihat daftar siswa (nama dan ID) yang terindikasi menyalahgunakan chatbot.
+- 🛠️ Membuat dan mengelola jawaban yang bisa diunggah ke database.
+
+## 🔍 Kenapa Ini Dibuat?
+
+Karena banyak siswa sekarang menggunakan ChatGPT tanpa berpikir. Tujuan kita adalah 
+mengajarkan cara berpikir, bukan hanya cara mencari jawaban. Chatbot ini adalah alat 
+bantu belajar, bukan mesin jawaban instan.
+
+## 👨🏻‍💻 Team Member
+
+- Micko Lesmana, mickolesmana@gmail.com
 
 
+## 🐋 Installation using Docker
+1. git clone https://github.com/komikndr/vegaai-augmented
+2. Make volume mount for Postgre and Minio, 
+    `mkdir volume_staging && cd volume_staging && mkdir postgre minio`
+3. Setting up `.env` by copy-ing and changing the value inside the `.env.example`
+4. `docker compose up`, you can change the expose port in app service inside `docker-compose.yaml`
+5. Go to `localhost:9000` login with minio account, create bucket the same in `.env`, set it to public
+4. Go to `localhost:8000`, login with the credential you put in `.env`
