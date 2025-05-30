@@ -38,19 +38,26 @@ bantu belajar, bukan mesin jawaban instan.
 ## Example
 
 ### Teacher Interaction
-1. Uploading question sheet
+**1. Uploading question sheet**
+   
    ![TeacherUpload](https://github.com/user-attachments/assets/fed72b52-ff99-4f3e-b42d-80d1e5551a9b)
 
-2. Checking available question sheet
+**3. Checking available question sheet**
+   
    ![TeacherAccess](https://github.com/user-attachments/assets/7381207e-7332-4629-b32b-f7ce7525bf22)
 
-3. Checking student who abusing LLM
+**5. Checking student who abusing LLM**
+   
    ![TeacherPlot](https://github.com/user-attachments/assets/99020171-da0f-4b76-b26b-b7fd05c811a4)
+    
    https://github.com/user-attachments/assets/e47ae481-124c-4d7f-9569-63cb5b87c52d
 
 ## Student Interaction 
-1. Student abusing LLM
-   https://github.com/user-attachments/assets/d3dd09bd-00db-4922-be6b-e6cc9c9ddab4
+**1. Student abusing LLM**
+
+    ![AbusingLLM](https://github.com/user-attachments/assets/e2e62c19-6e8c-499c-9b5e-dc4635c7d60a)
+
+    https://github.com/user-attachments/assets/d3dd09bd-00db-4922-be6b-e6cc9c9ddab4
 
 
 ## 👨🏻‍💻 Team Member
