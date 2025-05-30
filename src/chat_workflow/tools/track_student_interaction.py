@@ -16,7 +16,7 @@ async def track_student_interaction(
     Updates the student_performance table with the given parameters.
 
     Args:
-    - student_id: Unique identifier for the student.
+    - student_id: Unique identifier for the student. Since this is test just inject id 333
     - abuse_score_delta: Amount to add/subtract from llm_abuse_score.
     - good_tally_delta: Amount to add/subtract from good_tally.
     - performance_score: (Optional) Overwrite preliminary_performance if provided.
