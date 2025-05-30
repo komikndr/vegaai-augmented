@@ -37,6 +37,13 @@ bantu belajar, bukan mesin jawaban instan.
 
 ## Example
 
+### Teacher checking student performance
+![Plot](https://github.com/user-attachments/assets/6f44abe2-15e7-4abb-92cd-7b1b27885916)
+
+### Student Abusing LLM
+![AbusingLLM](https://github.com/user-attachments/assets/20ab6c84-1911-4d63-80d0-ef2bce0a2490)
+
+
 ### Teacher Interaction
 **1. Uploading question sheet**
    
@@ -49,16 +56,7 @@ bantu belajar, bukan mesin jawaban instan.
 **5. Checking student who abusing LLM**
    
    ![TeacherPlot](https://github.com/user-attachments/assets/99020171-da0f-4b76-b26b-b7fd05c811a4)
-    
-   https://github.com/user-attachments/assets/e47ae481-124c-4d7f-9569-63cb5b87c52d
-
-## Student Interaction 
-**1. Student abusing LLM**
-
-    ![AbusingLLM](https://github.com/user-attachments/assets/e2e62c19-6e8c-499c-9b5e-dc4635c7d60a)
-
-    https://github.com/user-attachments/assets/d3dd09bd-00db-4922-be6b-e6cc9c9ddab4
-
+   
 
 ## 👨🏻‍💻 Team Member
 
