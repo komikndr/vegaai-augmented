@@ -24,6 +24,23 @@ a far more intelligent solution is to use keda autoscaler in k8s,
 paired with Prophet to forecast traffic spikes in the system.
 
 This results in a cleaner, more efficient architecture—built with purpose, not just trend.
+
+If the argument is about sticking to a "single language" for ease of production, frankly, I don’t buy that.
+In practice, you’re already juggling multiple "languages" in modern development anyway:
+- JS
+- JSX (pedantic, i know)
+- TSX
+- HTML
+- CSS
+- YAML
+- Dockerfile
+- SQL
+So adding Python to the mix—especially when it’s the language of choice for AI—isn’t adding any unreasonable burden.
+It actually reduces complexity by giving you direct access to tools like LangGraph and LangChain without wrapping it all in yet another backend layer.
+( trust me i've already done this, it just pain)
+And hey, don’t quote me on this. but hey even Netflix engineer share the same
+view: https://youtu.be/GVeltoBcWMQ?si=GbE_DYol4Y9GLPFZ
+
 # 📚 LesLLM, Chatbot Edukasi. Guiding student to use LLM responsibly
 
 Sebuah chatbot edukatif dengan dua jenis mode: Siswa dan Guru, 
