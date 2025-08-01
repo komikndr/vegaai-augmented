@@ -35,6 +35,7 @@ In practice, you’re already juggling multiple "languages" in modern developmen
 - YAML
 - Dockerfile
 - SQL
+
 So adding Python to the mix—especially when it’s the language of choice for AI—isn’t adding any unreasonable burden.
 It actually reduces complexity by giving you direct access to tools like LangGraph and LangChain without wrapping it all in yet another backend layer.
 ( trust me i've already done this, it just pain)
