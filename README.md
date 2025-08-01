@@ -1,3 +1,25 @@
+# Note:
+## Frontend
+- Chainlit:
+- React, Vite
+- Validator, Zod
+## Backend
+- DB Access / ORM : SQLAlchemy, Psycopg2
+- Agent orchestrator : Langchain, Langgraph
+## Auth
+- KeyCloak
+## Side note
+Also, to explain one key architectural decision: I deliberately avoided using node for the backend.
+
+In the context of AI development, using Node (e.g. express.js) on top of a already built Python-based backend is, frankly, a stupid idea. 
+Python already has first class support for tools like LangGraph and LangChain, which are purpose-built for AI workflows. 
+Introducing Node.js would only add unnecessary complexity and duplication.
+
+If the concern is cold start times (Python interpreter vs js V8), 
+a far more intelligent solution is to use keda autoscaler in k8s, 
+paired with Prophet to forecast traffic spikes in the system.
+
+This results in a cleaner, more efficient architecture—built with purpose, not just trend.
 # 📚 LesLLM, Chatbot Edukasi. Guiding student to use LLM responsibly
 
 Sebuah chatbot edukatif dengan dua jenis mode: Siswa dan Guru, 
