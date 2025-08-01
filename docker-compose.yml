@@ -60,3 +60,12 @@ services:
     volumes:
       - ${MINIO_VOLUME_PATH}:/data
 
+  keycloak:
+    image: quay.io/keycloak/keycloak:26.2.5
+    command: start-dev --spi-x-frame-options-enabled=false
+    env_file:
+      - .env
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./volume_staging/keycloak/:/var/lib/postgresql/data
