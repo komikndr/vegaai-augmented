@@ -3,10 +3,12 @@
 - Chainlit:
 - React, Vite
 - Validator, Zod
+- State management, Recoil
 - Style, tailwind + ShadCN
 ## Backend
 - DB Access / ORM : SQLAlchemy, Psycopg2
 - Agent orchestrator : Langchain, Langgraph
+- Validator, Pydantic
 ## AI Core
 - LangGraph
 - LangChain
