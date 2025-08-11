@@ -1,48 +1,4 @@
-# Note:
-## Frontend
-- Chainlit:
-- React, Vite
-- Validator, Zod
-- State management, Recoil
-- Style, tailwind + ShadCN
-## Backend
-- DB Access / ORM : SQLAlchemy, Psycopg2
-- Agent orchestrator : Langchain, Langgraph
-- Validator, Pydantic
-## AI Core
-- LangGraph
-- LangChain
-## Auth
-- KeyCloak
-## Side note
-Also, to explain one key architectural decision: I deliberately avoided using node for the backend.
 
-In the context of AI development, using Node (e.g. express.js) on top of a already built Python-based backend is, frankly, a stupid idea. 
-Python already has first class support for tools like LangGraph and LangChain, which are purpose-built for AI workflows. 
-Introducing Node.js would only add unnecessary complexity and duplication.
-
-If the concern is cold start times (Python interpreter vs js V8), 
-a far more intelligent solution is to use keda autoscaler in k8s, 
-paired with Prophet to forecast traffic spikes in the system.
-
-This results in a cleaner, more efficient architecture built with purpose, not just trend.
-
-If the argument is about sticking to a "single language" for ease of production, frankly, I don’t buy that.
-In practice, you’re already juggling multiple "languages" in modern development anyway:
-- JS
-- JSX (pedantic, i know)
-- TSX
-- HTML
-- CSS
-- YAML
-- Dockerfile
-- SQL
-
-So adding Python to the mix, especially when it’s the language of choice for AI isn’t adding any unreasonable burden.
-It actually reduces complexity by giving you direct access to tools like LangGraph and LangChain without wrapping it all in yet another backend layer.
-( trust me i've already done this, it just pain)
-And hey, don’t quote me on this. but hey even Netflix engineer share the same
-view: https://youtu.be/GVeltoBcWMQ?si=GbE_DYol4Y9GLPFZ
 
 # 📚 LesLLM, Chatbot Edukasi. Guiding student to use LLM responsibly
 
